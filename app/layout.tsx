@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import localFont from "next/font/local";
-import { Montserrat } from "next/font/google";
+import { Montserrat , Poppins } from "next/font/google";
 
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -26,6 +26,12 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'], // Choose the weights you want
+  display: 'swap',              // Optional, for better loading
+});
+
 const marvinVisionsBig = localFont({
   src: [
     {
@@ -35,6 +41,16 @@ const marvinVisionsBig = localFont({
     },
   ],
   variable: "--font-marvin", // creates a CSS variable for the font
+});
+const bmpsFont = localFont({
+  src: [
+    {
+      path: "../public/fonts/BMSPA___.woff",
+      weight: "400", // adjust if you have other weights
+      style: "normal",
+    },
+  ],
+  variable: "--font-bmps", // creates a CSS variable for the font
 });
 
 const LIGHT_THEME_COLOR = "hsl(0 0% 100%)";
@@ -65,7 +81,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${marvinVisionsBig.variable} ${montserrat.variable}`}
+      className={`${marvinVisionsBig.variable} ${montserrat.variable} ${bmpsFont.variable} ${poppins.className}`}
       suppressHydrationWarning
     >
       <head>

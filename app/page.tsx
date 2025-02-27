@@ -1,7 +1,12 @@
+import Login from "@/components/ui-login/login";
 import React from "react";
 
 const page = () => {
-  return <div>page here</div>;
+  return (
+    <>
+      <Login />
+    </>
+  );
 };
 
 export default page;

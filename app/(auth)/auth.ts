@@ -31,7 +31,6 @@ export const {
         balance : {label: "balance",type:"text"}
       },
       async authorize({ publicAddress, signedNonce , balance}: any) {
-        console.log("yash",balance);
         // Fetch the user by publicAddress from your database using Drizzle
         const [user] = await getUserByPublicAddress(publicAddress);
         if (!user || !user.cryptoNonce || !user.cryptoNonceExpires) return null;
@@ -56,7 +55,6 @@ export const {
         
         // Clear the nonce (or update it) after successful verification
         await clearUserNonce(user.id);
-        console.log("object",user);
         // Return the user object; this object is saved in the session
         return { id: user.id, publicAddress: user.publicAddress , balance:user.balance};
       },

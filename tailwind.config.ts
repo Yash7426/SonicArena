@@ -17,6 +17,8 @@ const config: Config = {
         // Create a custom font family called 'marvin' using the CSS variable
         marvin: ['var(--font-marvin)', 'sans-serif'],
         montserrat: ["var(--font-montserrat)", "sans-serif"],
+        bmps : ['var(--font-bmps)','sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
       },
       borderRadius: {
         lg: 'var(--radius)',

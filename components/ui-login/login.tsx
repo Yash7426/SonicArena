@@ -1,5 +1,5 @@
-"use client"
-import { signIn, useSession } from "next-auth/react";
+"use client";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { ethers } from "ethers";
 
 declare global {
@@ -10,7 +10,6 @@ declare global {
 
 async function onSignInWithMetaMask() {
   try {
-    console.log("running here");
     if (!window.ethereum) {
       alert("Please install MetaMask first.");
       return;
@@ -20,21 +19,19 @@ async function onSignInWithMetaMask() {
     const publicAddress = await signer.getAddress();
     const balance = await provider.getBalance(publicAddress);
 
-    const s=ethers.formatEther(balance)
+    const s = ethers.formatEther(balance);
     const ss = s.toString();
 
     const response = await fetch("/api/crypto", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ publicAddress , ss}),
+      body: JSON.stringify({ publicAddress, ss }),
     });
-    
-    // Debug log the response status and text if needed
+
     if (!response.ok) {
-      const text = await response.text();
       throw new Error("Failed to fetch nonce");
     }
-    
+
     const { nonce } = await response.json();
 
     const signedNonce = await signer.signMessage(nonce);
@@ -43,7 +40,6 @@ async function onSignInWithMetaMask() {
       ss,
       publicAddress,
       signedNonce,
-      callbackUrl: "/chat",
     });
   } catch (error) {
     console.error("Error during MetaMask sign-in:", error);
@@ -53,12 +49,23 @@ async function onSignInWithMetaMask() {
 
 export default function Login() {
   const session = useSession();
-  console.log(session.status)
+  console.log(session.status);
   return (
     <main>
-      <h1 className="font-marvin text-[20px] text-white border px-4 py-2 rounded-[50px] bg-black transition duration-300 ease-in-out hover:bg-white hover:border-black hover:text-black">
-      <button onClick={onSignInWithMetaMask}>Connect Wallet</button>
-      </h1>
+      {session.status != "authenticated" ? (
+        <button
+          onClick={onSignInWithMetaMask}
+          className="font-bmps text-[20px] text-white border px-4 py-2 rounded-[50px] bg-black transition duration-300 ease-in-out hover:bg-white hover:border-black hover:text-black"
+        >
+          Connect Wallet
+        </button>
+      ) : (
+        <>
+          <span onClick={() => signOut()} className="truncate font-semibold">
+            {(session.data?.user as any)?.publicAddress}
+          </span>
+        </>
+      )}
     </main>
   );
 }
