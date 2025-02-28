@@ -55,7 +55,7 @@ export default function Login() {
       {session.status != "authenticated" ? (
         <button
           onClick={onSignInWithMetaMask}
-          className="font-bmps text-[20px] text-white border px-4 py-2 rounded-[50px] bg-black transition duration-300 ease-in-out hover:bg-white hover:border-black hover:text-black"
+          className="font-bmps text-[16px] text-white border px-4 py-2 rounded-[50px] bg-black transition duration-300 ease-in-out hover:bg-white hover:border-black hover:text-black"
         >
           Connect Wallet
         </button>
