@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 interface BtnProps {
@@ -5,11 +6,12 @@ interface BtnProps {
   bdabba?: string;
   text: string;
   tcol: string;
+  path:string;
 }
 
-const Btn: React.FC<BtnProps> = ({ color, bdabba, text, tcol }) => {
+const Btn: React.FC<BtnProps> = ({ color, bdabba, text, tcol, path}) => {
   return (
-    <div
+    <Link href={`/${path}`}
       className={`text-[16px] relative font-bmps py-2 px-4 w-fit`}
       style={{ backgroundColor: color , color: tcol }}
     >
@@ -19,7 +21,7 @@ const Btn: React.FC<BtnProps> = ({ color, bdabba, text, tcol }) => {
       <div className="w-[6px] h-[6px] absolute bottom-0 right-0" style={{ backgroundColor: bdabba }} />
 
       {text}
-    </div>
+    </Link>
   );
 };
 

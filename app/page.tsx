@@ -11,14 +11,14 @@ import React from "react";
 const page = () => {
   return (
     <div className="bg-black">
-      <LandingSec/>
-      <Sponsor/>
-      <About/>
-      <Modes/>
-      <Features/>
-      <Team/>
-      <Cta/>
-      <Footer/>
+      <LandingSec />
+      <Sponsor />
+      <About />
+      <Modes />
+      <Features />
+      <Team />
+      <Cta />
+      <Footer />
     </div>
   );
 };

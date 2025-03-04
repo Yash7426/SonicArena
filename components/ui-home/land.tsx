@@ -9,8 +9,8 @@ const Land = () => {
         <p className="text-white font-bmps text-[150px] leading-[150px]">Sonic<span className="text-[#EE1C25]">Arena</span></p>
         <p className="text-[20px] text-white font-bold">The Ultimate Card Game—Powered by AI, DeFi & NFTs!</p>
         <div className="flex flex-row gap-5">
-            <Btn text={"PLAY MODE"} color={"#EE1C25"} bdabba={"#000000"} tcol="#ffffff"/>
-            <Btn text={"BET MODE"} color={"#EE1C25"} bdabba={"#000000"} tcol="#ffffff"/>
+            <Btn text={"PLAY MODE"} color={"#EE1C25"} bdabba={"#000000"} tcol="#ffffff" path="playmode/play"/>
+            <Btn text={"BET MODE"} color={"#EE1C25"} bdabba={"#000000"} tcol="#ffffff" path="betmode/matches"/>
         </div>
     </div>
   )

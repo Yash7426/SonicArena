@@ -17,8 +17,8 @@ const Cta = () => {
                     Enter the Arena. Prove Your Skills!
                     </div>
                     <div className='flex flex-row gap-[20px]'>
-                        <Btn bdabba='#000000' color='#ffffff' text='PLAY MODE' tcol='#000000'/>
-                        <Btn bdabba='#000000' color='#ffffff' text='BET MODE' tcol='#000000'/>
+                        <Btn bdabba='#000000' color='#ffffff' text='PLAY MODE' tcol='#000000' path="playmode/play"/>
+                        <Btn bdabba='#000000' color='#ffffff' text='BET MODE' tcol='#000000' path="betmode/matches"/>
                     </div>
                 </div>
             </div>
