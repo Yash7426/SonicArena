@@ -1,19 +1,41 @@
 import Image from "next/image";
 
 interface CardProps {
-  head: string;
-  desc: string;
   img: string;
+  head: string;
+  content: string;
+  fcol: string; // Front background color
+  bcol: string; // Back background color
+  bheadCol: string;
+  fheadCol: string;
 }
 
-const Card: React.FC<CardProps> = ({ head, desc, img }) => {
+export default function Card({ img, head, content, fcol, bcol, bheadCol, fheadCol }: CardProps) {
   return (
-    <div className="flex flex-col gap-[20px] border border-dashed border-[#EE1C25] w-[21%] h-[350px] text-center justify-center items-center p-[40px]">
-      <Image src={img} alt="Icon" width={70} height={70} />
-      <h1 className="font-bmps text-[20px] text-[#EE1C25]">{head}</h1>
-      <p className="font-poppins text-[14px] text-white">{desc}</p>
+    <div className="group w-64 h-80 perspective">
+      <div className="relative w-full h-full transition-transform duration-500 transform-style-3d group-hover:rotate-y-180 grid grid-rows-2">
+        
+        {/* Front Side */}
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center text-white backface-hidden font-poppins gap-4 p-4"
+          style={{ backgroundColor: fcol, color: fheadCol }} 
+        >
+          <Image src={`/images/${img}`} alt="icon" width={128} height={128} />
+          <h1 className="text-[30px] font-bold">{head}</h1>
+        </div>
+
+        {/* Back Side */}
+        <div
+          className="absolute inset-0 flex flex-col justify-between font-poppins rotate-y-180 backface-hidden p-6 gap-2"
+          style={{ backgroundColor: bcol }}
+        >
+          <h1 className="text-[24px] font-bold self-start" style={{ color: bheadCol }}>
+            {head}
+          </h1>
+          <p className="text-[16px] text-right font-bold leading-5 self-baseline">{content}</p>
+        </div>
+        
+      </div>
     </div>
   );
-};
-
-export default Card;
+}
