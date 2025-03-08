@@ -1,41 +1,44 @@
+"use client";
+
+import { IoWalletOutline } from "react-icons/io5";
+import WalletModal from "../modal/wallet-modal";
+import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import Btn from "../ui-home/btn";
 
-const DFooter = () => {
+export default function Footer() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <header className="p-2 bg-black text-white flex items-center py-6 px-6 md:px-10 absolute bottom-0 w-full">
-      <div className="flex items-center gap-2">
-        <Link href="/" className="flex flex-row gap-3 items-center">
-          <Image
-            src={"/images/sonic.svg"}
-            alt="SonicArena Logo"
-            width={30}
-            height={30}
-          />
-          <h1 className="font-bmps text-xl">SONICARENA</h1>
-        </Link>
-      </div>
-      <nav className="ml-auto flex items-center gap-6 text-sm font-mono">
-        <Btn
-          text={"PLAY"}
-          color={"#EE1C25"}
-          bdabba={"#000000"}
-          tcol="#ffffff"
-          path="playmode/play"
-        />
-        <Link href="/playmode/rewards" className="font-bmps">
-          REWARDS
-        </Link>
-        <Link href="/playmode/history" className="font-bmps">
-          HISTORY
-        </Link>
-        <Link href="/playmode/profile" className="font-bmps">
-          PROFILE
-        </Link>
-      </nav>
-    </header>
-  );
-};
+    <>
+      {/* Wallet Modal */}
+      <WalletModal isOpen={open} onClose={() => setOpen(false)} />
 
-export default DFooter;
+      <footer className="absolute bottom-0 font-bmps flex items-center justify-between w-full h-12 px-4 bg-red-600 text-white text-sm font-semibold">
+        {/* Top-Left Black Square */}
+        <div className="absolute top-0 left-0 w-2 h-2 bg-black" />
+        {/* Bottom-Left Black Square */}
+        <div className="absolute bottom-0 left-0 w-2 h-2 bg-black" />
+
+        {/* Top-Right Black Square */}
+        <div className="absolute top-0 right-0 w-2 h-2 bg-black" />
+        {/* Bottom-Right Black Square */}
+        <div className="absolute bottom-0 right-0 w-2 h-2 bg-black" />
+
+        {/* Left Section */}
+        <span>+ How to Play?</span>
+
+        {/* Middle Section (Wallet) */}
+        <div 
+          className="flex items-center gap-1 cursor-pointer font-bmps" 
+          onClick={() => setOpen(true)} // Open modal on click
+        >
+          <IoWalletOutline size={16} />
+          <span>WALLET</span>
+        </div>
+
+        {/* Right Section */}
+        <span><Link href={"/betmode/matches"}>@ Switch to Bet Mode</Link></span>
+      </footer>
+    </>
+  );
+}
