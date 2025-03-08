@@ -46,7 +46,7 @@ const ProfilePage = () => {
 
 
       <div className="">
-  <h2 className="text-xl font-bold flex items-center gap-3 mt-6 font-bmps text-[25px]">
+  <h2 className="font-bold flex items-center gap-3 mt-6 font-bmps text-[25px]">
     Connected Profile <Image src={"/images/spade.svg"} alt="." width={28} height={28}/>
   </h2>
 
