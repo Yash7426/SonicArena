@@ -1,7 +1,10 @@
 "use client";
 
 import { IoWalletOutline } from "react-icons/io5";
-import WalletModal from "../modal/wallet-modal";
+import dynamic from "next/dynamic";
+
+const WalletModal = dynamic(() => import("../modal/wallet-modal"), { ssr: false });
+
 import { useState } from "react";
 import Link from "next/link";
 
@@ -11,9 +14,10 @@ export default function Footer() {
   return (
     <>
       {/* Wallet Modal */}
-      <WalletModal isOpen={open} onClose={() => setOpen(false)} />
+      
 
       <footer className="absolute bottom-0 font-bmps flex items-center justify-between w-full h-12 px-4 bg-red-600 text-white text-sm font-semibold">
+      <WalletModal isOpen={open} onClose={() => setOpen(false)} />
         {/* Top-Left Black Square */}
         <div className="absolute top-0 left-0 w-2 h-2 bg-black" />
         {/* Bottom-Left Black Square */}

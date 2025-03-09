@@ -72,7 +72,8 @@ const history = () => {
               },
             }
           );  
-          const responseData = await trendingResponse.json();
+          const rawResponseData = await trendingResponse.json();
+          const responseData = rawResponseData.matches;
           let Win = 0;
           for(let i=0;i<responseData.length;i++){
             if(responseData[i].winner_id==userId) Win++;
@@ -80,7 +81,7 @@ const history = () => {
           if(responseData.length>0){
             setWinPercentage((Win/responseData.length)*100)
           }
-          setHistoryData(responseData.matches);
+          setHistoryData(responseData);
         } catch (error) {
           console.error("Error fetching historyData:", error);
         } finally {
