@@ -1,19 +1,10 @@
-"use client"
+"use client";
 
 import Bets from "@/components/ui-betmode/bets";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-type BetsData = {
-  id: number;
-  teamA: string;
-  teamB: string;
-  scoreA?: number;
-  scoreB?: number;
-  amount: number;
-  date: Date;
-  status: "won" | "lost" | "draw";
-};
+
 // const dummyBets: BetsData[] = [
 //   {
 //     id: 1,
@@ -50,34 +41,86 @@ type BetsData = {
 // ];
 
 const bets = () => {
-
   const [betData, setBetData] = useState<BetsData[]>([]);
   const { data: session } = useSession();
   const [loading, setLoading] = useState<boolean>(true);
+
+  // useEffect(() => {
+  //   const fetchBetData = async () => {
+  //     try {
+  //       const userId = (session?.user as any)?.id;
+  //       const trendingResponse = await fetch(`/api/bet?userId=${userId}`, {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+  //       const responseData = await trendingResponse.json();
+  //       console.log(responseData);
+  //       // {
+  //       //     "id": "73e81326-a0bb-423a-a75d-a38883bf621b",
+  //       //     "bet_user": "ee8459da-2a5f-47ae-9fe3-5dcfd4c993a2",
+  //       //     "match": "694d2f85-8102-480b-a99d-701fc21dfdd5",
+  //       //     "date": "2025-03-09T21:52:26.309Z",
+  //       //     "winning_status": "pending",
+  //       //     "nft_token": null,
+  //       //     "nft_id": null,
+  //       //     "nft_name": null,
+  //       //     "amount": "0.002",
+  //       //     "predict_user": "77e3485e-4d71-428e-a4bc-6b25bfcac3e9"
+  //       // }
+  //       // type BetsData = {
+  //       //  match:string
+  //       //   amount: number;
+  //       //   date: Date;
+  //       //   status: "won" | "lost" | "draw";
+  //       // };
+  //       // also only add the following fields from the response
+  //       // match : match
+  //       // amount"amount
+  //       // date:date;
+  //       // status = winning_status
+  //       //
+  //       setBetData(responseData.bets);
+  //     } catch (error) {
+  //       console.error("Error fetching betData:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   if (session) fetchBetData();
+  // }, [session]);
 
   useEffect(() => {
     const fetchBetData = async () => {
       try {
         const userId = (session?.user as any)?.id;
-        const trendingResponse = await fetch(
-          `/api/bet?userId=${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );  
+        if (!userId) return;
+  
+        const trendingResponse = await fetch(`/api/bet?userId=${userId}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+  
         const responseData = await trendingResponse.json();
-        setBetData(responseData.matches);
+        console.log(responseData);
+  
+        const betData = responseData.bets?.map((bet: any) => ({
+          match: bet.match,
+          amount: parseFloat(bet.amount), // Ensuring amount is a number
+          date: new Date(bet.date), // Converting to Date object
+          status: bet.winning_status as "won" | "lost" | "draw",
+        })) || [];
+  
+        setBetData(betData);
       } catch (error) {
         console.error("Error fetching betData:", error);
       } finally {
         setLoading(false);
       }
     };
-    if(session)
-      fetchBetData();
+  
+    if (session) fetchBetData();
   }, [session]);
   if (loading)
     return (

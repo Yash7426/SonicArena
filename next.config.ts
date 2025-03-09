@@ -6,7 +6,11 @@ const nextConfig: NextConfig = {
     serverActions: {},
   },
   images: {
-    remotePatterns: [],
+    remotePatterns: [
+      {
+        hostname:"purple-petite-dragonfly-645.mypinata.cloud"
+      }
+    ],
   },
 };
 

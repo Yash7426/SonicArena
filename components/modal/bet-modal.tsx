@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 
 interface BetModalProps {
@@ -8,7 +8,12 @@ interface BetModalProps {
   player2: string;
 }
 
-const BetModal: React.FC<BetModalProps> = ({ isOpen, onClose, player1, player2 }) => {
+const BetModal: React.FC<BetModalProps> = ({
+  isOpen,
+  onClose,
+  player1,
+  player2,
+}) => {
   const [selectedPlayer, setSelectedPlayer] = useState("playerOne");
   const [amount, setAmount] = useState("");
 
@@ -16,40 +21,42 @@ const BetModal: React.FC<BetModalProps> = ({ isOpen, onClose, player1, player2 }
 
   return (
     <div className="font-bmps fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 backdrop-blur-md">
-      <div className="border border-[#ff0000] bg-black text-white w-[450px] min-h-[300px] p-4 relative">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-base uppercase tracking-widest">MAKE BET</h2>
-          <button 
-            onClick={onClose} 
-            className="text-2xl font-bold text-white hover:text-red-500"
+      <div className="border border-[#ff0000] bg-black text-white w-[450px] py-4 relative border-dashed flex flex-col gap-3">
+        <div className="flex items-center justify-center mb-4 border-dashed p-2 border-b-2 border-[#ff0000]">
+          <h2 className="uppercase text-center">MAKE BET</h2>
+          <button
+            onClick={onClose}
+            className="text-[16px] font-semibold text-white hover:text-red-500 absolute right-4"
             aria-label="Close modal"
           >
             &times;
           </button>
         </div>
 
-        <div className="flex items-center justify-center gap-5 mb-3">
-          <span className="uppercase text-sm">Player one : {player1}</span>
-          <input
-            type="radio"
-            name="player"
-            value="playerOne"
-            checked={selectedPlayer === "playerOne"}
-            onChange={() => setSelectedPlayer("playerOne")}
-            className="accent-[#ff0000]"
-          />
-        </div>
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-center gap-5 mb-3">
+            <span className="uppercase text-sm">Player one : {player1}</span>
+            <input
+              type="radio"
+              name="player"
+              value="playerOne"
+              checked={selectedPlayer === "playerOne"}
+              onChange={() => setSelectedPlayer("playerOne")}
+              className="accent-[#ff0000]"
+            />
+          </div>
 
-        <div className="flex items-center justify-center gap-5 mb-3">
-          <span className="uppercase text-sm">Player two : {player2}</span>
-          <input
-            type="radio"
-            name="player"
-            value="playerTwo"
-            checked={selectedPlayer === "playerTwo"}
-            onChange={() => setSelectedPlayer("playerTwo")}
-            className="accent-[#ff0000]"
-          />
+          <div className="flex items-center justify-center gap-5 mb-3">
+            <span className="uppercase text-sm">Player two : {player2}</span>
+            <input
+              type="radio"
+              name="player"
+              value="playerTwo"
+              checked={selectedPlayer === "playerTwo"}
+              onChange={() => setSelectedPlayer("playerTwo")}
+              className="accent-[#ff0000]"
+            />
+          </div>
         </div>
 
         <div className="flex items-center justify-center gap-2 mb-3">
@@ -62,7 +69,7 @@ const BetModal: React.FC<BetModalProps> = ({ isOpen, onClose, player1, player2 }
           />
         </div>
 
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center">
           <button
             onClick={() => {
               console.log("Player:", selectedPlayer, "Amount:", amount);

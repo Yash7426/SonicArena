@@ -1,16 +1,10 @@
-"use client"
+"use client";
 
 import Rewards from "@/components/ui-playmode/rewards";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-type NFTSData = {
-  token_id: number;
-  nft_address: string;
-  name: string;
-  imageURL?: string;
-  date: Date;
-};
+
 // const dummyNFTs: NFTSData[] = [
 //     {
 //       token_id: 1,
@@ -40,38 +34,83 @@ type NFTSData = {
 //       imageURL: "https://via.placeholder.com/150",
 //       date: new Date("2023-12-10"),
 //     },
-//   ];  
+//   ];
 
 const RewardsComp = () => {
-
   // correct code
   const [nftdata, setNftdata] = useState<NFTSData[]>([]);
   const { data: session } = useSession();
   const [loading, setLoading] = useState<boolean>(true);
 
+  // useEffect(() => {
+  //   const fetchRewards = async () => {
+  //     try {
+  //       const userId = (session?.user as any)?.id;
+  //       const trendingResponse = await fetch(`/api/match?userId=${userId}`, {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+  //       const responseData = await trendingResponse.json();
+
+  //       // only set those matches which has
+  //       //           "winner_id": user id,
+  //       //           "is_status": "open"
+  //       // also only add the following fields from the response
+  //       // nft_id:number;
+  //       // nft_token: string;
+  //       // nft_name:string;
+  //       // date:Date;
+  //       // imageUrl: koi bhi ek hard coded string
+
+  //       setNftdata(responseData.matches);
+  //     } catch (error) {
+  //       console.error("Error fetching nftdata:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   if (session) fetchRewards();
+  // }, [session]);
+
   useEffect(() => {
     const fetchRewards = async () => {
       try {
         const userId = (session?.user as any)?.id;
-        const trendingResponse = await fetch(
-          `/api/match?userId=${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );  
+        if (!userId) return;
+
+        const trendingResponse = await fetch(`/api/match?userId=${userId}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
         const responseData = await trendingResponse.json();
-        setNftdata(responseData.matches);
+
+        // Filter & map the required data
+        const filteredData = responseData.matches
+          .filter(
+            (match: any) =>
+              match.winner_id === userId && match.is_status === "closed"
+          )
+          .map((match: any) => ({
+            nft_id: match.nft_id,
+            nft_token: match.nft_token,
+            nft_name: match.nft_name,
+            date: match.date,
+            imageURL:
+              "https://purple-petite-dragonfly-645.mypinata.cloud/ipfs/bafkreiewgi62iyo34y6bp5bf7jgxchwp2prqcxyotyrjm7bjcw7xoemttu",
+          }));
+
+        setNftdata(filteredData);
       } catch (error) {
         console.error("Error fetching nftdata:", error);
       } finally {
         setLoading(false);
       }
     };
-    if(session)
-      fetchRewards();
+
+    if (session) fetchRewards();
   }, [session]);
   if (loading)
     return (

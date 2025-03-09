@@ -3,7 +3,8 @@ import { getBetsByUserId, createBet, updateBet } from "@/lib/db/queries";
 
 export async function GET(req: Request) {
   try {
-    const { userId } = await req.json();
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
 
     if (!userId) {
       return NextResponse.json(
@@ -16,6 +17,7 @@ export async function GET(req: Request) {
 
     return NextResponse.json({ bets });
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { error: "Failed to fetch bets" },
       { status: 500 }

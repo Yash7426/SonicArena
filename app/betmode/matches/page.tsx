@@ -39,29 +39,67 @@ const matches = () => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState<boolean>(true);
 
+  // useEffect(() => {
+  //   const fetchRewards = async () => {
+  //     try {
+  //       const trendingResponse = await fetch(
+  //         `/api/betMatch`,
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       );  
+  //       const responseData = await trendingResponse.json();
+  //       // reponse
+  //       // {
+  //         //     "id": "7ace03fa-f8e9-401f-b23f-47b4da93c5ea",
+  //         //     "player_1": "3aea9482-fd14-4f93-82fa-7d2b21a0142f",
+  //         //     "player_2": "ee8459da-2a5f-47ae-9fe3-5dcfd4c993a2",
+  //         // }
+  //       // also only add the following fields from the response in this format
+  //         // type MatchData = {
+  //           //   id: number;
+  //           //   teamA: string;
+  //           //   teamB: string;
+  //           // };
+  //           setMatchData(responseData.matches);
+
+  //     } catch (error) {
+  //       console.error("Error fetching matchData:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   if(session)
+  //     fetchRewards();
+  // }, [session]);
+
   useEffect(() => {
     const fetchRewards = async () => {
       try {
-        const userId = (session?.user as any)?.id;
-        const trendingResponse = await fetch(
-          `/api/match?userId=${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );  
+        const trendingResponse = await fetch(`/api/betMatch`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+  
         const responseData = await trendingResponse.json();
-        setMatchData(responseData.matches);
+        const matchData = responseData.matches?.map((match: any) => ({
+          id: Number(match.id), // Ensuring id is a number
+          teamA: match.player_1,
+          teamB: match.player_2,
+        })) || [];
+  
+        setMatchData(matchData);
       } catch (error) {
         console.error("Error fetching matchData:", error);
       } finally {
         setLoading(false);
       }
     };
-    if(session)
-      fetchRewards();
+  
+    if (session) fetchRewards();
   }, [session]);
   if (loading)
     return (
