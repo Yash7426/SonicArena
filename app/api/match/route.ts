@@ -3,8 +3,11 @@ import { createMatch, getMatchesByUserId, updateMatch } from "@/lib/db/queries";
 
 export async function GET(req: Request) {
   try {
-    const { userId } = await req.json();
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
 
+    console.log("yash id",userId)
+    
     if (!userId) {
       return NextResponse.json(
         { error: "User ID is required" },
@@ -13,13 +16,6 @@ export async function GET(req: Request) {
     }
 
     const matches = await getMatchesByUserId(userId);
-
-    if (!matches || matches.length === 0) {
-      return NextResponse.json(
-        { message: "No matches found for this user" },
-        { status: 404 }
-      );
-    }
 
     return NextResponse.json({ matches });
   } catch (error) {

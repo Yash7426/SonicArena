@@ -14,13 +14,6 @@ export async function GET(req: Request) {
 
     const bets = await getBetsByUserId(userId);
 
-    if (!bets || bets.length === 0) {
-      return NextResponse.json(
-        { message: "No bets found for this user" },
-        { status: 404 }
-      );
-    }
-
     return NextResponse.json({ bets });
   } catch (error) {
     return NextResponse.json(
