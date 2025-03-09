@@ -1,5 +1,7 @@
 "use client";
 
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { IoWalletOutline } from "react-icons/io5";
 
 type WalletModalProps = {
@@ -10,20 +12,24 @@ type WalletModalProps = {
 export default function WalletModal({ isOpen, onClose }: WalletModalProps) {
   if (!isOpen) return null;
 
+  const { data: session } = useSession();
+  const [walletBalance, setWalletBalance] = useState<number>(0);
+  const [publicAddress, setPublicAddress] = useState<string>("0xb01852C97A2aED3577E148477ca0bd6c205d4A41"); 
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
       <div className="w-[560px] bg-black text-white border-2 border-dashed border-red-500">
         <div className="p-4 border-b font-semibold border-dashed border-white-500">
           <p className="text-sm">Connected Wallet</p>
           <p className="mt-1 text-[10px] break-all text-white-300">
-            G4FHvz5DCwHzDViPxhUx97u6isKEZgSRociADyhZCVF
+            {publicAddress}
           </p>
         </div>
 
         {/* SONIC */}
         <div className="p-4 font-semibold border-b border-dashed border-white-500 flex flex-col ritems-center justify-between">
           <span className="">SONIC</span>
-          <span className="text-[12px] text-white-300">0.0000</span>
+          <span className="text-[12px] text-white-300">{walletBalance}</span>
         </div>
 
         {/* NFTs */}
