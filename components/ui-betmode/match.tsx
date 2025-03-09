@@ -27,7 +27,7 @@ const Match = ({ matches = [] }: MatchProps) => {
         </div>
         {matches.map((match, index) => (
           <div
-            key={match.id}
+            key={index}
             className="grid grid-cols-4 items-center border-b border-[#ffffff] border-dashed p-5"
           >
             <div className="">{index + 1}.</div>
