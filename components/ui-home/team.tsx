@@ -9,7 +9,7 @@ const Team = () => {
             <Tcard img={"/images/yash.svg"} name={"Yash Agarwal"} des={"Web Developer"} />
             <Tcard img={"/images/mayank.svg"} name={"Mayank Rawat"} des={"Web Developer"} />
             <Tcard img={"/images/aviral.svg"} name={"Aviral Hatwal"} des={"Web3 Developer"} />
-            <Tcard img={"/images/kudnar.svg"} name={"Yash Kudnar"} des={"Web3 Developer"} />
+            {/* <Tcard img={"/images/kudnar.svg"} name={"Yash Kudnar"} des={"Web3 Developer"} /> */}
             <Tcard img={"/images/darsh.svg"} name={"Darsh Baxi"} des={"AI Developer"} />
         </div>
     </div>
