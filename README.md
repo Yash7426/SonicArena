@@ -97,8 +97,7 @@ A transparent DeFi-based betting mechanism enables players to place wagers in mu
 
 ### 4. Social Rewards & NFT Distribution
 Players earn exclusive, collectible NFTs based on their social interactions and engagement.Social interactions on Twitter are tracked using ZerePy for sentiment analysis, and players are rewarded with NFTs based on their engagement.
-<img src="public/images/WebsiteImages/Nft.png
-" alt="" width="828px">
+<img src="public/images/WebsiteImages/Nft.png" alt="" width="828px">
 
 ### 5. Cross-Chain Liquidity & Integration
 Seamlessly transfer assets across different blockchain networks using deBridge technology. This feature enhances gaming liquidity, reduces transaction costs, and ensures interoperability with multiple crypto ecosystems.
