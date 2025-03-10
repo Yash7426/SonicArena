@@ -118,10 +118,7 @@ const history = () => {
         const responseData = rawResponseData.matches || [];
   
         // Calculate win percentage
-        let Win = responseData.filter((match: any) => match.winner_id === userId).length;
-        if (responseData.length > 0) {
-          setWinPercentage((Win / responseData.length) * 100);
-        }
+        
   
         // Process match history
         const historyData = responseData
@@ -131,7 +128,10 @@ const history = () => {
             date: match.date,
             status: match.winner_id === userId ? "won" : "lose",
           }));
-  
+          let Win = responseData.filter((match: any) => match.winner_id === userId && match.is_status=="closed").length;
+        if (historyData.length > 0) {
+          setWinPercentage((Win / historyData.length) * 100);
+        }
         setHistoryData(historyData);
       } catch (error) {
         console.error("Error fetching historyData:", error);

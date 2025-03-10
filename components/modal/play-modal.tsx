@@ -57,7 +57,7 @@ export default function PlayModal({ isOpen, onClose }: PlayModalProps) {
               }}
               type="number"
               placeholder="Enter Room ID"
-              className="px-4 py-2 rounded-lg"
+              className="px-4 py-2 rounded-lg text-[#000000]"
             />
             <Button  onClick={() => {
               window.open(

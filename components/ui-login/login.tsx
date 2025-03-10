@@ -61,9 +61,9 @@ export default function Login() {
         </button>
       ) : (
         <>
-          <span onClick={() => signOut()} className="truncate font-semibold">
+          <div onClick={() => signOut()} className="truncate font-semibold w-[150px] cursor-pointer p-2 rounded-lg text-[#ffffff] border border-[#EE1C25]">
             {(session.data?.user as any)?.publicAddress}
-          </span>
+          </div>
         </>
       )}
     </main>

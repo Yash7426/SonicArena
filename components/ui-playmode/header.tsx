@@ -11,13 +11,7 @@ const DFooter = () => {
     <header className="p-2 bg-black text-white flex items-center py-6 px-6 md:px-10 absolute top-0 w-full">
       <div className="flex items-center gap-2">
         <Link href="/" className="flex flex-row gap-3 items-center">
-          <Image
-            src={"/images/sonic.svg"}
-            alt="SonicArena Logo"
-            width={30}
-            height={30}
-          />
-          <h1 className="font-bmps text-xl">SONICARENA</h1>
+          <Image src={"/images/arena_logo.svg"} alt="." width={128} height={128}/>
         </Link>
       </div>
       <nav className="ml-auto flex items-center gap-6 text-sm font-mono">

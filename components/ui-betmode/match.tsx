@@ -39,13 +39,13 @@ const Match: React.FC<MatchProps> = ({ matches = [] }) => {
         {matches.map((match, index) => (
           <div
             key={index}
-            className="grid grid-cols-4 items-center border-b border-[#ffffff] border-dashed p-5"
+            className="grid grid-cols-4  border-b border-[#ffffff] border-dashed p-5"
           >
             <div className="">{index + 1}.</div>
-            <div className="flex gap-x-1 items-center justify-center">
-              <div className="w-[120px] truncate">{match.teamA}</div>{" "}
-              <div className="text-3xl font-bold">vs</div>
-              <div className="w-[120px] truncate"> {match.teamB}</div>
+            <div className="flex gap-x-1 items-center">
+              <div className="w-[100px] truncate">{match.teamA}</div>{" "}
+              <div className="text-3xl font-semibold text-[#EE1c25]">vs</div>
+              <div className="w-[100px] truncate"> {match.teamB}</div>
             </div>
             <button className="text-white underline">VIEW LIVE</button>
             <BetModal matchId={index + 1} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} player1={match.teamA} player2={match.teamB} />
