@@ -19,6 +19,7 @@ type MatchData = {
 };
 
 type BetsData = {
+  predict_user?:string;
   match:string;
   amount: number;
   date: Date;

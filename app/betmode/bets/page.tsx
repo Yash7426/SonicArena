@@ -107,6 +107,7 @@ const bets = () => {
   
         const betData = responseData.bets?.map((bet: any) => ({
           match: bet.match,
+          predict_user:bet.predict_user,
           amount: parseFloat(bet.amount), // Ensuring amount is a number
           date: new Date(bet.date), // Converting to Date object
           status: bet.winning_status as "won" | "lost" | "draw",

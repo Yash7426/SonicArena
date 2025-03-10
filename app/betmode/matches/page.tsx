@@ -86,12 +86,22 @@ const matches = () => {
   
         const responseData = await trendingResponse.json();
         const matchData = responseData.matches?.map((match: any) => ({
-          id: Number(match.id), // Ensuring id is a number
+          id: (match.id), // Ensuring id is a number
           teamA: match.player_1,
           teamB: match.player_2,
         })) || [];
   
+
         setMatchData(matchData);
+
+        // Store match IDs with their index in localStorage
+      const matchIdMap = matchData.reduce((acc : any, match:any, index:any) => {
+        acc[match.id] = index;
+        return acc;
+      }, {} as Record<string, number>);
+
+      localStorage.setItem("matchIdMap", JSON.stringify(matchIdMap));
+
       } catch (error) {
         console.error("Error fetching matchData:", error);
       } finally {

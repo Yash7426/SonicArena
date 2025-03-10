@@ -1,11 +1,22 @@
 import Image from "next/image";
+import { useState } from "react";
+import BetModal from "../modal/bet-modal";
 
-type MatchProps = {
+
+interface MatchData {
+  teamA: string;
+  teamB: string;
+}
+
+interface MatchProps {
   matches?: MatchData[];
-};
+}
 
-const Match = ({ matches = [] }: MatchProps) => {
+const Match: React.FC<MatchProps> = ({ matches = [] }) => {
   if (matches.length === 0) return null;
+
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
     <section className="flex flex-col gap-y-7 bg-black text-white px-[5vw] font-poppins">
@@ -37,7 +48,8 @@ const Match = ({ matches = [] }: MatchProps) => {
               <div className="w-[120px] truncate"> {match.teamB}</div>
             </div>
             <button className="text-white underline">VIEW LIVE</button>
-            <button className="bg-white text-black px-2 py-1 font-bold w-fit mx-auto">
+            <BetModal matchId={index + 1} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} player1={match.teamA} player2={match.teamB} />
+            <button className="bg-white text-black px-2 py-1 font-bold w-fit mx-auto" onClick={() => setIsModalOpen(true)}>
               MAKE BET
             </button>
           </div>
