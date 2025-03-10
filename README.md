@@ -89,7 +89,7 @@ Engage in fast-paced, action-packed real-time Player vs. Player (PvP) battles. T
 ### 2. AI-Powered Training Mode
 Improve your skills with an AI-driven training mode that continuously adapts to your playstyle. The AI bots analyze player performance and progressively enhance their difficulty, ensuring a challenging and evolving training experience.
 
-<img src="public/images/WebsiteImages/ImagePvB.png" alt="" width="828px">
+<img src="public/images/WebsiteImages/PvB.png" alt="" width="828px">
 
 ### 3. Decentralized Betting System
 A transparent DeFi-based betting mechanism enables players to place wagers in multiple cryptocurrencies. Bets are converted into SONIC tokens, ensuring liquidity and a fair betting ecosystem. The system employs AI-powered analytics to predict match outcomes and provide real-time odds.
