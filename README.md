@@ -84,25 +84,25 @@ Frontend:
 
 ### 1. Real-Time PvP Battles
 Engage in fast-paced, action-packed real-time Player vs. Player (PvP) battles. The platform ensures fair matchmaking, seamless controls, and an optimized gaming experience through AI-driven game balancing.
-<img src="public/images/WebsiteImage/LiveMatches.png" alt="" width="828px">
+<img src="public/images/WebsiteImages/LiveMatches.png" alt="" width="828px">
 
 ### 2. AI-Powered Training Mode
 Improve your skills with an AI-driven training mode that continuously adapts to your playstyle. The AI bots analyze player performance and progressively enhance their difficulty, ensuring a challenging and evolving training experience.
 
-<img src="public/images/WebsiteImagePvB.png" alt="" width="828px">
+<img src="public/images/WebsiteImages/ImagePvB.png" alt="" width="828px">
 
 ### 3. Decentralized Betting System
 A transparent DeFi-based betting mechanism enables players to place wagers in multiple cryptocurrencies. Bets are converted into SONIC tokens, ensuring liquidity and a fair betting ecosystem. The system employs AI-powered analytics to predict match outcomes and provide real-time odds.
-<img src="public/images/WebsiteImage/enterBet-Modal.png" alt="" width="828px">
+<img src="public/images/WebsiteImages/enterBet-Modal.png" alt="" width="828px">
 
 ### 4. Social Rewards & NFT Distribution
 Players earn exclusive, collectible NFTs based on their social interactions and engagement.Social interactions on Twitter are tracked using ZerePy for sentiment analysis, and players are rewarded with NFTs based on their engagement.
-<img src="public/images/WebsiteImage/Nft.png
+<img src="public/images/WebsiteImages/Nft.png
 " alt="" width="828px">
 
 ### 5. Cross-Chain Liquidity & Integration
 Seamlessly transfer assets across different blockchain networks using deBridge technology. This feature enhances gaming liquidity, reduces transaction costs, and ensures interoperability with multiple crypto ecosystems.
-<img src="public/images/WebsiteImage/debridge.png" alt="" width="828px">
+<img src="public/images/WebsiteImages/debridge.png" alt="" width="828px">
 
 # Concepts [](#concepts)
 
