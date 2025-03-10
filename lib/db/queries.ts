@@ -148,12 +148,15 @@ export async function getMatches(): Promise<Array<Match>> {
  */
 export async function createMatch(
   player1Id: string,
-  player2Id: string
+  player2Id: string,
+  winner?: string
 ): Promise<string> {
   try {
     await db.insert(match).values({
       player_1: player1Id,
       player_2: player2Id,
+      winner_id: winner,
+      is_status: "closed",
       date: new Date(),
     });
     return "Success";
