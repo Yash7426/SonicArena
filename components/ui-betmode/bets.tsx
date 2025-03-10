@@ -13,14 +13,13 @@ type BetProps = {
 
 //one post request for NFT
 const Bets = ({ bets = [] }: BetProps) => {
-  if (bets.length === 0) return null;
   const [token,setToken] = useState<number>(0);
   const [imageUrl,setImageUrl] = useState<string>("");
   const [nftAddress,setNftAddress] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
+  
   const [matchData, setMatchData] = useState<Record<string, number>>({});
-
+  
   useEffect(() => {
     const storedMatches = localStorage.getItem("matchIdMap");
     if (storedMatches) {
@@ -30,16 +29,16 @@ const Bets = ({ bets = [] }: BetProps) => {
   console.log(JSON.stringify(matchData),"ma")
   function listenForTransactionMined(transactionResponse:any, provider:any) {
     try {
-        return new Promise((resolve:any, reject) => {
-            provider.once(transactionResponse.hash, (transactionReciept:any) => {
-                resolve();
-            });
+      return new Promise((resolve:any, reject) => {
+        provider.once(transactionResponse.hash, (transactionReciept:any) => {
+          resolve();
         });
+      });
     } catch (e) {
-        console.log(e);
+      console.log(e);
     }
   }
-
+  
   async function setWinner(matchId : number, win : number) {
     try {
         if (window.ethereum !== "undefined") {
@@ -139,7 +138,7 @@ const Bets = ({ bets = [] }: BetProps) => {
   }
 
 
-
+  if (bets.length === 0) return null;
   return (
     <section className="flex flex-col gap-y-7 bg-black text-white px-[5vw] font-poppins">
       <div>

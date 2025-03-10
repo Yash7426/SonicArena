@@ -13,10 +13,10 @@ interface MatchProps {
 }
 
 const Match: React.FC<MatchProps> = ({ matches = [] }) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   if (matches.length === 0) return null;
 
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
     <section className="flex flex-col gap-y-7 bg-black text-white px-[5vw] font-poppins">

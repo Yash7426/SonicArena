@@ -40,7 +40,7 @@ import { useEffect, useState } from "react";
 //   },
 // ];
 
-const bets = () => {
+const BetPage = () => {
   const [betData, setBetData] = useState<BetsData[]>([]);
   const { data: session } = useSession();
   const [loading, setLoading] = useState<boolean>(true);
@@ -136,4 +136,4 @@ const bets = () => {
 
   return <Bets bets={betData} />;
 };
-export default bets;
+export default BetPage;

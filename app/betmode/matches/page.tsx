@@ -33,7 +33,7 @@ type MatchData = {
 //   },
 // ];
 
-const matches = () => {
+const MatchPage = () => {
 
   const [matchData, setMatchData] = useState<MatchData[]>([]);
   const { data: session } = useSession();
@@ -124,4 +124,4 @@ const matches = () => {
 
   return <Match matches={matchData} />;
 };
-export default matches;
+export default MatchPage;

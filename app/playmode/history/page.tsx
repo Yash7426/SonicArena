@@ -43,7 +43,7 @@ import { useEffect, useState } from "react";
 //   },
 // ];
 
-const history = () => {
+const HistoryPage = () => {
   // correct code
   const [historyData, setHistoryData] = useState<HistoryData[]>([]);
   const { data: session } = useSession();
@@ -156,4 +156,4 @@ const history = () => {
 
   return <History winPercentage={winPercentage} history={historyData} />;
 };
-export default history;
+export default HistoryPage;

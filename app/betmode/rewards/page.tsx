@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 //   },
 // ];
 
-const rewards = () => {
+const RewardsPage = () => {
   const [nftdata, setNftdata] = useState<NFTSData[]>([]);
   const { data: session } = useSession();
   const [loading, setLoading] = useState<boolean>(true);
@@ -108,4 +108,4 @@ const rewards = () => {
     );
   return <Rewards balance={walletBalance} nfts={nftdata} />;
 };
-export default rewards;
+export default RewardsPage;
