@@ -1,4 +1,4 @@
-import { createMatch } from "@/lib/db/queries";
+import { createCompleteMatch, createMatch } from "@/lib/db/queries";
 import { NextResponse } from "next/server";
 
 export async function OPTIONS() {
@@ -18,7 +18,14 @@ export async function GET(req: Request) {
     const loser = searchParams.get("loser");
     const winner = searchParams.get("winner");
     if (loser && winner) {
-      await createMatch(loser, winner, winner);
+      await createCompleteMatch(
+        loser,
+        winner,
+        winner,
+        "aviral",
+        "0x34tg4fd4f3",
+        "23"
+      );
     }
     return NextResponse.json(
       {},

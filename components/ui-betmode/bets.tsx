@@ -1,36 +1,35 @@
 import Image from "next/image";
 import { ethers } from "ethers";
-import {address,abi} from "@/contracts_abi/Bet.json"
-import {address1,abi1} from "@/contracts_abi/NFT.json"
-import {address2,abi2} from "@/contracts_abi/NFT1.json"
-import {address3,abi3} from "@/contracts_abi/NFT2.json"
+import { address, abi } from "@/contracts_abi/Bet.json";
+import { address1, abi1 } from "@/contracts_abi/NFT.json";
+import { address2, abi2 } from "@/contracts_abi/NFT1.json";
+import { address3, abi3 } from "@/contracts_abi/NFT2.json";
 import { useEffect, useState } from "react";
 
 type BetProps = {
   bets?: BetsData[];
 };
 
-
 //one post request for NFT
 const Bets = ({ bets = [] }: BetProps) => {
-  const [token,setToken] = useState<number>(0);
-  const [imageUrl,setImageUrl] = useState<string>("");
-  const [nftAddress,setNftAddress] = useState<string>("");
+  const [token, setToken] = useState<number>(0);
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [nftAddress, setNftAddress] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  
+
   const [matchData, setMatchData] = useState<Record<string, number>>({});
-  
+
   useEffect(() => {
     const storedMatches = localStorage.getItem("matchIdMap");
     if (storedMatches) {
-      setMatchData((JSON.parse(storedMatches)));
+      setMatchData(JSON.parse(storedMatches));
     }
   }, []);
-  console.log(JSON.stringify(matchData),"ma")
-  function listenForTransactionMined(transactionResponse:any, provider:any) {
+  console.log(JSON.stringify(matchData), "ma");
+  function listenForTransactionMined(transactionResponse: any, provider: any) {
     try {
-      return new Promise((resolve:any, reject) => {
-        provider.once(transactionResponse.hash, (transactionReciept:any) => {
+      return new Promise((resolve: any, reject) => {
+        provider.once(transactionResponse.hash, (transactionReciept: any) => {
           resolve();
         });
       });
@@ -38,78 +37,85 @@ const Bets = ({ bets = [] }: BetProps) => {
       console.log(e);
     }
   }
-  
-  async function setWinner(matchId : number, win : number) {
+
+  async function setWinner(matchId: number, win: number) {
     try {
-        if (window.ethereum !== "undefined") {
-          const provider = new ethers.BrowserProvider(window.ethereum);
-          await provider.send("eth_requestAccounts", []);
-          const signer = await provider.getSigner();
-            const contract = new ethers.Contract(address, abi, signer);
-  
-            const transactionResponse = await contract.setWinner(
-                Number(matchId), 
-                Number(win)
-            );
-  
-            await listenForTransactionMined(transactionResponse, provider);
-            console.log(`Winner set for match ${matchId}`);
-        } else {
-            console.log("Ethereum provider not found");
-        }
+      if (window.ethereum !== "undefined") {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(address, abi, signer);
+
+        const transactionResponse = await contract.setWinner(
+          Number(matchId),
+          Number(win)
+        );
+
+        await listenForTransactionMined(transactionResponse, provider);
+        console.log(`Winner set for match ${matchId}`);
+      } else {
+        console.log("Ethereum provider not found");
+      }
     } catch (e) {
-        console.log(e);
+      console.log(e);
     }
   }
 
-  async function settleTeamResultWon(matchId : number) {
+  async function settleTeamResultWon(matchId: number) {
     try {
-        if (window.ethereum !== "undefined") {
-          const provider = new ethers.BrowserProvider(window.ethereum);
-          await provider.send("eth_requestAccounts", []);
-          const signer = await provider.getSigner();
-            const contract = new ethers.Contract(address, abi, signer);
-  
-            const transactionResponse = await contract.settleTeamResultWon(
-                Number(matchId),
-                 { value: ethers.parseEther("0") } // Since it's payable, but no value is required
-            );
-  
-            await listenForTransactionMined(transactionResponse, provider);
-            console.log(`Winnings settled for match ${matchId}`);
-        } else {
-            console.log("Sonic provider not found");
-        }
+      if (window.ethereum !== "undefined") {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(address, abi, signer);
+
+        const transactionResponse = await contract.settleTeamResultWon(
+          Number(matchId),
+          { value: ethers.parseEther("0") } // Since it's payable, but no value is required
+        );
+
+        await listenForTransactionMined(transactionResponse, provider);
+        console.log(`Winnings settled for match ${matchId}`);
+      } else {
+        console.log("Sonic provider not found");
+      }
     } catch (e) {
-        console.log(e);
+      console.log(e);
     }
   }
 
-  async function NFT_Gen(contractAddress: string, contractAbi: any, metadataUrl: string, imageUrl: string) {
+  async function NFT_Gen(
+    contractAddress: string,
+    contractAbi: any,
+    metadataUrl: string,
+    imageUrl: string
+  ) {
     try {
       const provider = new ethers.BrowserProvider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
       const signer = await provider.getSigner();
-      const contract = new ethers.Contract(contractAddress, contractAbi, signer);
-  
+      const contract = new ethers.Contract(
+        contractAddress,
+        contractAbi,
+        signer
+      );
+
       const transactionResponse = await contract.mintNFT(metadataUrl);
       await listenForTransactionMined(transactionResponse, provider);
-  
+
       // Fetch the token counter after the transaction is confirmed
       const number = await contract.getTokenCounter();
       const tokenId = Number(number.toString());
-      console.log(tokenId,"ma")
+      console.log(tokenId, "ma");
       // Now update the state together
       setToken(tokenId);
       setImageUrl(imageUrl);
       setNftAddress(contractAddress);
       setIsModalOpen(true); // Open the modal after token is set
-  
     } catch (e) {
       console.log(e);
     }
   }
-  
 
   function randomNFTGeneration() {
     const random = Math.floor(Math.random() * 3);
@@ -136,7 +142,6 @@ const Bets = ({ bets = [] }: BetProps) => {
       );
     }
   }
-
 
   if (bets.length === 0) return null;
   return (
@@ -174,21 +179,28 @@ const Bets = ({ bets = [] }: BetProps) => {
             <div className="flex gap-4">
               {bet.status.toUpperCase() === "WON" && (
                 <>
-                  <button onClick={async () => {
-    const matchId = matchData[String(bet.match)];
-    // const matchId = 1
-     // Ensure it's a number
-    if (matchId !== undefined) {
-      console.log(matchId)
-      // console.log(Number(bet.predict_user ?? 0))
-      await setWinner(matchId+1, 1); await settleTeamResultWon( matchId+1)
-    } else {
-      console.error("Invalid matchId for:", bet.match);
-    }
-  }}  className="px-2 py-1 text-white font-bold rounded p-2 border border-dashed">
+                  <button
+                    onClick={async () => {
+                      const matchId = matchData[String(bet.match)];
+                      // const matchId = 1
+                      // Ensure it's a number
+                      if (matchId !== undefined) {
+                        console.log(matchId);
+                        // console.log(Number(bet.predict_user ?? 0))
+                        await setWinner(matchId + 1, 1);
+                        await settleTeamResultWon(matchId + 1);
+                      } else {
+                        console.error("Invalid matchId for:", bet.match);
+                      }
+                    }}
+                    className="px-2 py-1 text-white font-bold rounded p-2 border border-dashed"
+                  >
                     Withdraw
                   </button>
-                  <button onClick={randomNFTGeneration} className="px-2 py-1 text-white font-bold rounded p-2 border border-dashed">
+                  <button
+                    onClick={randomNFTGeneration}
+                    className="px-2 py-1 text-white font-bold rounded p-2 border border-dashed"
+                  >
                     NFT
                   </button>
                 </>
@@ -200,11 +212,26 @@ const Bets = ({ bets = [] }: BetProps) => {
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 ">
           <div className="bg-black p-6 rounded-lg text-white w-fit border border-dashed  border-[#EE1C25]">
-            <h3 className="text-lg font-bold mb-4 text-center">NFT Minted Successfully!</h3>
-            <Image src={imageUrl} alt="NFT" width={200} height={200} className="mx-auto mb-4" />
-            <p><strong>Token ID:</strong> {token}</p>
-            <p><strong>Contract Address:</strong> {nftAddress}</p>
-            <button onClick={() => setIsModalOpen(false)} className="mt-4 w-full bg-red-500 py-2 rounded">
+            <h3 className="text-lg font-bold mb-4 text-center">
+              NFT Minted Successfully!
+            </h3>
+            <Image
+              src={imageUrl}
+              alt="NFT"
+              width={200}
+              height={200}
+              className="mx-auto mb-4"
+            />
+            <p>
+              <strong>Token ID:</strong> {token}
+            </p>
+            <p>
+              <strong>Contract Address:</strong> {nftAddress}
+            </p>
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="mt-4 w-full bg-red-500 py-2 rounded"
+            >
               Close
             </button>
           </div>

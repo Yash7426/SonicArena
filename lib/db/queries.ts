@@ -148,14 +148,40 @@ export async function getMatches(): Promise<Array<Match>> {
  */
 export async function createMatch(
   player1Id: string,
+  player2Id: string
+): Promise<string> {
+  try {
+    await db.insert(match).values({
+      player_1: player1Id,
+      player_2: player2Id,
+      date: new Date(),
+    });
+    return "Success";
+  } catch (error) {
+    console.error("Failed to create match");
+    throw error;
+  }
+}
+
+/**
+ * Create a complete match
+ */
+export async function createCompleteMatch(
+  player1Id: string,
   player2Id: string,
-  winner?: string
+  winner?: string,
+  nft_name?: string,
+  nft_token?: string,
+  nft_id?: string
 ): Promise<string> {
   try {
     await db.insert(match).values({
       player_1: player1Id,
       player_2: player2Id,
       winner_id: winner,
+      nft_id,
+      nft_name,
+      nft_token,
       is_status: "closed",
       date: new Date(),
     });
